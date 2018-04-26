@@ -1,0 +1,42 @@
+<div class="login-container">
+    <div class="login-form">
+        <form #formRef="ngForm">
+            <fieldset ngModelGroup="users">
+                <div class="input-row">
+                    <mat-form-field [floatLabel]="floatLabel">
+                        <input matInput type="text" placeholder="用户名" required name="name" [(ngModel)]="name" #nameRef="ngModel" />
+                        <mat-error *ngIf="nameFormControl.hasError('required')">用户名
+                            <strong>必填</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field [floatLabel]="floatLabel">
+                        <mat-label>密码</mat-label>
+                        <input matInput type="password" placeholder="密码" required name="password" [(ngModel)]="password" #passwordRef="ngModel">
+                        <mat-error *ngIf="passwordFormControl.hasError('required')">用户密码
+                            <strong>必填</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field [floatLabel]="floatLabel">
+                        <mat-label>邮箱</mat-label>
+                        <input matInput type="text" placeholder="邮箱" required name="email" [(ngModel)]="email" #emailRef="ngModel">
+                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                请输入有效的电子邮箱地址
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">用户邮箱
+                            <strong>必填</strong>
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" (click)="onLoginBtn(formRef.value)">登录</button>
+                    <button mat-raised-button (click)="onRegisterBtn(formRef.value)">去注册</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>
