@@ -1,79 +1,83 @@
-// var client = require('../db/db.connection');
-// console.log(client);
+import { crud } from '../db/db-crud';
+import { FunCommon, toJson } from './fun-common';
+import { getLogger } from "../../lib/log-config";
 
-// /**
-//  * 用户表模型
-//  */
-// function blog_users(objectModel) {
-//     this.name = objectModel.name;
-//     this.password = objectModel.password;
-//     this.email = objectModel.email;
-// }
+const loggerInfo = getLogger('info');
+const _crud = new crud();
+const funCommon = new FunCommon();
 
-// // 保存用户信息
-// blog_users.prototype.save = function (callback) {
-//     callback = callback || function (e) { }
+export class OnethinkUsers {
+    // 用户表名称
+    tableName;
+    // 用户ID
+    id;
+    // 用户昵称
+    username;
+    // 用户密码
+    userpass;
+    // 用户邮箱，唯一
+    email;
+    // 用户头像
+    imgurl = '';
+    // 注册时候使用的设备，pc Or mobile
+    device = '';
+    // 创建时间
+    createAt;
+    // 更新时间(注册时候可为当前注册时间)
+    updateAt;
+    // 用户状态
+    state;
 
-//     var userObject = {
-//         name: this.name,
-//         password: this.password,
-//         email: this.email
-//     };
+    constructor(o) {
+        this.tableName = 'onethink_users';
+        if (o) {
+            // this.userTable = o;
+            this.username = o.username;
+            this.userpass = o.userpass;
+            this.email = o.email;
+        }
+    }
 
-//     var getTimes = new Date().getTime();
-//     console.log(getTimes);
-//     userObject.createtime = Math.floor(getTimes / 1000); // 默认读取服务器时间为创建时间
-//     userObject.updatetime = Math.floor(0); // 默认开始不更新
-//     userObject.status = 1; // 默认用户激活
+    save(cb) {
+        const createTime = Math.floor(new Date().getTime() / 1000);
+        this.createAt = this.updateAt = createTime;
+        const $sql = 'insert into ' + this.tableName + ' (username,userpass,email,imgurl,device,createAt,updateAt) values (?,?,?,?,?,?,?)';
+        _crud.query({ sql: $sql, data: [this.username, this.userpass, this.email, this.imgurl, this.device, this.createAt, this.updateAt] }, function (result) {
+            loggerInfo.info(JSON.stringify(result));
+            cb(result);
+        });
+    }
 
-//     return callback(null, 1);
-//     //打开数据库
-//     client.open(function (err, db) {
-//         if (err) {
-//             return callback(err);//错误，返回 err 信息
-//         }
-//         //读取 users 集合
-//         db.collection('users', function (err, collection) {
-//             if (err) {
-//                 client.close();
-//                 return callback(err);//错误，返回 err 信息
-//             }
-//             //将用户数据插入 users 集合
-//             collection.insert(userObject, {
-//                 safe: true
-//             }, function (err, resp) {
-//                 client.close();
-//                 if (err) {
-//                     return callback(err);//错误，返回 err 信息
-//                 }
-//                 callback(null, resp[0]);//成功！err 为 null，并返回存储后的用户文档
-//             });
-//         });
-//     });
-// };
+    getByEmail(email, cb) {
+        const $sql = 'select email from ' + this.tableName + ' where email=? ';
+        _crud.query({ sql: $sql, data: [email] }, function (result) {
+            if (result) {
+                loggerInfo.info(JSON.stringify(result));
+                cb(toJson(result));
+            }
+        });
+    }
 
-// blog_users.prototype.get = function (key, callback) {
-//     if (!key) {
-//         return callback('数据异常'); // 返回错误信息
-//     }
-//     client.open(function (e, db) {
-//         if (e) {
-//             client.close();
-//             return callback(e); // 返回错误信息
-//         }
+}
 
-//         // 以易读的方式来读取数据，使用 pretty()方法
-//         var cc = db.col.find().pretty();
-//         console.log(cc);
-//     });
-// };
-
-// module.exports = blog_users;
-
-var mongoose = require('mongoose')
-var UsersSchema = require('../schemas/users') //拿到导出的数据集模块
-var Users = mongoose.model('Users', UsersSchema) // 编译生成Movie 模型
- 
-module.exports = Users;
-
-
+    // 用户表字段
+    // userTable = {
+    //     // 用户ID
+    //     id: 1,
+    //     // 用户昵称
+    //     username: '',
+    //     // 用户密码
+    //     userpass: '',
+    //     // 用户邮箱，唯一
+    //     email: '',
+    //     // 用户头像
+    //     imgurl: '',
+    //     // 注册时候使用的设备，pc Or mobile
+    //     device: '',
+    //     // 创建时间
+    //     createAt: '',
+    //     // 更新时间(注册时候可为当前注册时间)
+    //     updateAt: '',
+    //     // 用户状态
+    //     state: 1,
+    // };

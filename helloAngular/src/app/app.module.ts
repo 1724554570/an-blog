@@ -33,13 +33,12 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-
-    routing,
+    routing
   ],
   exports: [
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule
   ],
   providers: [
     { provide: 'authService', useClass: AuthService }

@@ -1,7 +1,7 @@
 /**
  * mongodb数据库连接配置使用
  */
-let cfg = require('./db.cofig');
+let cfg = require('./db-cofig');
 // const mongodb = require("mongodb"),
 //     Db = mongodb.Db,
 //     MongoClient = mongodb.MongoClient,

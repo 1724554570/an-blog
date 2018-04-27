@@ -6,9 +6,11 @@ var logger = require('morgan');
 
 let session = require('express-session');
 let MongoStore = require('connect-mongo')(session);
-let settings = require('./core/db/db.cofig');
 let flash = require('connect-flash');
-// global.db = require('./core/db/db.connection');
+// let settings = require('./core/db/db-cofig');
+
+// import { useLogger, getLogger } from './lib/log-config';
+import { mongdb } from './core/db/db-cofig';
 
 
 var indexRouter = require('./routes/index');
@@ -28,18 +30,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 提供会话支持
-app.use(session({
-  secret: settings.mongdb.cookieSecret,
-  key: settings.mongdb.db,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 },
-  store: new MongoStore({
-    // db: settings.mongdb.db,
-    // host: settings.mongdb.host,
-    // port: settings.mongdb.port,
-    url: settings.mongdb.urlConnection
-  })
-}));
+// 提供mongdb会话支持
+// app.use(session({
+//   secret: mongdb.cookieSecret,
+//   key: mongdb.db,
+//   cookie: { maxAge: 1000 * 60 * 60 * 24 },
+//   store: new MongoStore({ url: mongdb.urlConnection })
+// }));
 
 app.use('/', indexRouter);
 app.use('/apis', usersRouter);
@@ -59,5 +56,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// useLogger(app, getLogger());
 
 module.exports = app;

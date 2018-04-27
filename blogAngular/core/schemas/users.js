@@ -53,6 +53,15 @@ UsersSchema.statics = {
                 { name: condition }, { email: condition }
             ]
         }).exec(cb);
+    },
+    save: function (object, cb) {
+        console.log(typeof object);
+        this.save(object).exec(cb);
+
+        // , function (err, users) {
+        //     if (err) throw err;
+        //     cb(users);
+        // }
     }
 };
 
