@@ -53,8 +53,8 @@ router.all('/update', function (req, resp, next) {
   let email = '1724554570@qq.com';
   const usersModels = new OnethinkUsers({ setUserUpdate: { username, userpass, email } });
   loggerOth.info('/usersModels-update=' + JSON.stringify({ setUserUpdate: { username, userpass, email } }));
-  usersModels.update(function (result) {
-    loggerOth.info('/update-result=' + (result));
+  return usersModels.update(function (result) {
+    loggerOth.info('/update-result=' + JSON.stringify(result));
     return resp.send({ message: Code['200'], data: null, status: 200 });
   });
 

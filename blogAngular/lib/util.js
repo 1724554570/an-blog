@@ -48,3 +48,13 @@ export function toJson(o) {
     o = JSON.parse(o);
     return o;
 }
+
+/**
+ * 格式化SQL
+ * @param {*} table 表名
+ * @param {*} field 表字段
+ * @param {*} condition 执行条件 
+ */
+export function callUpdate(table, field, condition) {
+    return 'UPDATE ' + table + ' SET ' + field + ' WHERE ' + condition;
+}

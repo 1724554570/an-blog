@@ -3,7 +3,9 @@ import { extend, toJson } from '../../lib/util';
 import { mysqlDb } from './db-cofig';
 import { getLogger } from "../../lib/log-config";
 
-
+// 根据需要获取logger
+const loggerErr = getLogger('err');
+const loggerDbErr = getLogger('dberr');
 
 export class crud {
     pool;
@@ -11,9 +13,6 @@ export class crud {
     constructor() {
         // 使用连接池，提升性能
         this.pool = createPool(extend({}, mysqlDb));
-        // 根据需要获取logger
-        this.loggerErr = getLogger('err');
-        this.loggerDbErr = getLogger('dberr');
     }
 
     headleError(err) {
@@ -25,8 +24,7 @@ export class crud {
             connection.query(o.sql, o.data, function (err, result) {
                 connection.release();
                 if (err) {
-                    this.loggerDbErr.error("pool.getConnection " + JSON.stringify(err));
-                    return cb();
+                    loggerDbErr.error("pool.getConnection " + JSON.stringify(err));
                 };
                 cb && cb(result);
             });
@@ -38,7 +36,7 @@ export class crud {
             connection.query(o.sql, function (err, result) {
                 connection.release();
                 if (err) {
-                    this.loggerDbErr.error(JSON.stringify(err) + "===" + insert);
+                    loggerDbErr.error(JSON.stringify(err) + "===" + insert);
                 };
                 cb && cb(result);
             });
