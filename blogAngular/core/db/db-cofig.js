@@ -1,7 +1,7 @@
 /**
  * 数据库配置
  */
-export const mongdb = {
+export const mongdbDb = {
     cookieSecret: 'myblog',
     db: 'blogAngular',
     host: 'localhost',
@@ -9,8 +9,8 @@ export const mongdb = {
     urlConnection: 'mongodb://machine:123456@localhost/blogAngular'
 };
 
-export const mysql = {
-    connectionLimit : 100,
+export const mysqlDb = {
+    connectionLimit : 10,
     host: '127.0.0.1',
     port: 3306,
     user: 'root',

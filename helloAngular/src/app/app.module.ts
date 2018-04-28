@@ -3,15 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from '@angular/forms';
-
 // import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './base/app.component';
 import { LoginComponent } from './components/members/login/login.component';
-
-import { routing } from './app.routes';
-
-
 import { AuthService } from './core/auth.service';
 import {
   MatButtonModule,
@@ -19,6 +13,7 @@ import {
   MatInputModule,
 } from '@angular/material';
 
+import { routing } from './app.routes';
 
 @NgModule({
   declarations: [
