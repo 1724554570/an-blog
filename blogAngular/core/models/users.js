@@ -79,19 +79,30 @@ export class OnethinkUsers {
 
     update(cb) {
         const updateTime = Math.floor(new Date().getTime() / 1000);
-        const $sql = 'update' + this.tableName + 'set ';
         let updateString = [];
-        if (Object.keys(updateJson) > 0) {
-            this.setUserUpdate.updateAt = updateTime;
-            let updateJson = this.setUserUpdate;
-            loggerOth.info(JSON.stringify(updateJson));
+        let updateValue = [];
+        let updateJson = this.setUserUpdate;
+        loggerOth.info("update(cb)=" + Object.keys(updateJson).length);
+        if (Object.keys(updateJson).length > 0) {
+            updateJson.updateAt = updateTime;
+            loggerOth.info("update(cb)=" + JSON.stringify(updateJson));
             for (var key in updateJson) {
-                updateString.push((key + '="' + updateJson[key] + '"'));
+                updateString.push((key + '=?'));
+                updateValue.push('"' + updateJson[key] + '"');
             }
         }
-        updateString = updateString, join(',');
-        console.log(updateString);
-        cb(updateString);
+        updateString = updateString.join(',');
+        // updateValue = updateValue.join(',');
+        updateValue.push('"' + updateJson['email'] + '"');
+        loggerOth.info("update(cb)=" + updateString);
+        loggerOth.info("update(cb)=" + updateValue);
+
+        const $sql = 'update' + this.tableName + 'set ' + updateString + 'where email=?';
+        _crud.query({ sql: $sql, data: updateValue }, function (result) {
+            loggerOth.info("update(cb)=" + result);
+            cb(result);
+        });
+
     }
 
     getByEmail(email, cb) {
