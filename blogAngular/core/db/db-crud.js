@@ -16,27 +16,16 @@ export class crud {
     }
 
     headleError(err) {
-        console.log(err);
+        loggerDbErr.error("pool.getConnection " + JSON.stringify(err));
     }
 
     query(o, cb) {
-        this.pool.getConnection(function (err, connection) {
+        const self = this;
+        self.pool.getConnection(function (err, connection) {
             connection.query(o.sql, o.data, function (err, result) {
                 connection.release();
                 if (err) {
-                    loggerDbErr.error("pool.getConnection " + JSON.stringify(err));
-                };
-                cb && cb(result);
-            });
-        });
-    }
-
-    insert(o, cb) {
-        this.pool.getConnection(function (err, connection) {
-            connection.query(o.sql, function (err, result) {
-                connection.release();
-                if (err) {
-                    loggerDbErr.error(JSON.stringify(err) + "===" + insert);
+                    self.headleError(err);
                 };
                 cb && cb(result);
             });

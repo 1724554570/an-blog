@@ -44,7 +44,7 @@ const configure = {
         default: { appenders: ['stdout', 'req'], level: 'debug' },//appenders:采用的appender,取appenders项,level:设置级别
         err: { appenders: ['stdout', 'err'], level: 'error' },
         oth: { appenders: ['stdout', 'oth'], level: 'info' },
-        dberr: { appenders: ['stdout', 'dberr'], level: 'error' },
+        dberr: { appenders: ['stdout', 'dberr'], level: 'info' },
         info: { appenders: ['stdout', 'info'], level: 'info' }
     }
 }

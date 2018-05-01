@@ -28,6 +28,8 @@
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.16",
     "mysql": "^2.15.0",
-    "nodemon": "^1.17.3"
+    "mysql2": "^1.5.3",
+    "nodemon": "^1.17.3",
+    "sequelize": "^4.37.6"
   }
 }

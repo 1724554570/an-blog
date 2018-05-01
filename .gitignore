@@ -1,4 +1,5 @@
 /blogAngular/src
+/blogAngular/package-lock.json
 /blogAngular/tsconfig.json
 /blogAngular/dist
 /blogAngular/dist/*
@@ -8,4 +9,5 @@
 /blogAngular/node_modules/*
 /helloAngular/node_modules
 /helloAngular/node_modules/*
+/helloAngular/package-lock.json
 

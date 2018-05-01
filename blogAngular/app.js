@@ -17,6 +17,7 @@ import { mongdb } from './core/db/db-cofig';
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var sequlizeUsersRouter = require('./routes/sequlize-user');
 
 var app = express();
 
@@ -41,7 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }));
 
 app.use('/', indexRouter);
-app.use('/apis', usersRouter);
+app.use('/api', usersRouter);
+app.use('/api', sequlizeUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
