@@ -10,7 +10,7 @@ const list = {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express', routerlist: list });
+  res.render('index', { title: '飞扬的青春', routerlist: list });
 });
 
 module.exports = router;

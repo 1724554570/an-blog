@@ -7,23 +7,23 @@ import Comment from './Comment.model';
 
 const loggerDb = getLogger('dberr');
 // force: true 如果表已经存在，将会丢弃表 { force: true }
-User.sync({ force: false }).then(() => {
-    loggerDb.info("Users 表已创建");
-    let uuid = SymbolUuid();
-    uuid = '5b43fd6b-c28b-433a-bc90-00e871cfc687';
-    let user_name = 'machine';
-    let user_pass = '123456';
-    let user_email = '1724554570@qq.com';
-    let md5Pass = createHash('md5');
-    user_pass = md5Pass.update(user_pass).digest('hex');
-    User.create({ user_id: uuid, user_name: user_name, user_pass: user_pass, user_email: user_email })
-        .then(result => {
-            console.log(result.get('user_name')); // John Doe (SENIOR ENGINEER)
-            console.log(result.get('user_pass')); // SENIOR ENGINEER
-        }).catch(err => {
-            loggerDb.error(JSON.stringify(err));
-        });
-});
+// User.sync({ force: false }).then(() => {
+//     loggerDb.info("Users 表已创建");
+//     let uuid = SymbolUuid();
+//     uuid = '5b43fd6b-c28b-433a-bc90-00e871cfc687';
+//     let user_name = 'machine';
+//     let user_pass = '123456';
+//     let user_email = '1724554570@qq.com';
+//     let md5Pass = createHash('md5');
+//     user_pass = md5Pass.update(user_pass).digest('hex');
+//     User.create({ user_id: uuid, user_name: user_name, user_pass: user_pass, user_email: user_email })
+//         .then(result => {
+//             console.log(result.get('user_name')); // John Doe (SENIOR ENGINEER)
+//             console.log(result.get('user_pass')); // SENIOR ENGINEER
+//         }).catch(err => {
+//             loggerDb.error(JSON.stringify(err));
+//         });
+// });
 // Article.sync({ force: true }).then(() => {
 //     loggerDb.info("Articles 表已创建");
 // });
