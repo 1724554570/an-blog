@@ -1,7 +1,6 @@
 import express from 'express';
 
 var createError = require('http-errors');
-// var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -9,10 +8,9 @@ var logger = require('morgan');
 let session = require('express-session');
 let MongoStore = require('connect-mongo')(session);
 let flash = require('connect-flash');
-// let settings = require('./core/db/db-cofig');
 
 // import { useLogger, getLogger } from './lib/log-config';
-import { mongdb } from './core/db/db-cofig';
+//import { mongdb } from './core/config/db-cofig';
 
 
 var indexRouter = require('./routes/index');

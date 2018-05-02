@@ -1,4 +1,4 @@
-const db = require('./db-cofig');
+const db = require('../config/db-cofig');
 const os = require('mongoose');
 const uri = db.mongdb.urlConnection;
 const options = {

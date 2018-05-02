@@ -1,6 +1,6 @@
 import { createPool } from "mysql";
 import { extend, toJson } from '../../lib/util';
-import { mysqlDb } from './db-cofig';
+import { mysqlDb } from '../config/db-cofig';
 import { getLogger } from "../../lib/log-config";
 
 // 根据需要获取logger

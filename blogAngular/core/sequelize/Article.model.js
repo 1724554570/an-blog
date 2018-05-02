@@ -1,5 +1,5 @@
 import { STRING, TEXT, TINYINT, UUID } from "sequelize";
-import sequelize from './sequelize.db';
+import sequelize from '../database/db-sequelize';
 
 import Comment from './Comment.model';
 
@@ -8,7 +8,7 @@ import Comment from './Comment.model';
  */
 const Article = sequelize.define('sequelize_article',
     {
-        article_uuid: {
+        article_id: {
             type: UUID,
             primaryKey: true
         },

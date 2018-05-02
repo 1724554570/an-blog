@@ -8,7 +8,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
  */
 export class ConstantsController {
 
-    APISERVER = '//127.0.0.1:3000/apis';
+    APISERVER = '//127.0.0.1/api';
 
     private isTypes(o: any) {
         return ({}).toString.call(o);

@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import { mysqlDb } from '../db/db-cofig';
+import { mysqlDb } from '../config/db-cofig';
 import { getLogger } from "../../lib/log-config";
 
 const { database, user, password } = mysqlDb;
