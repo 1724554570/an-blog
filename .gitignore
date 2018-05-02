@@ -7,10 +7,14 @@
 /blogAngular/logs/*
 /blogAngular/node_modules
 /blogAngular/node_modules/*
+/blogAngular/README.md
+
 /helloAngular/node_modules
 /helloAngular/node_modules/*
 /helloAngular/package-lock.json
+
 nbproject/
 nbproject/*
+
 template/
 template/*

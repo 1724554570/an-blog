@@ -24,17 +24,17 @@ router.all('/user/login', function (req, resp, next) {
     emails = '1724554570';
     email = emails + '@qq.com';
     if (!username || !userpass || !email) {
-        return resp.json({ message: Code['000'], data: null, status: '000' });
+        return resp.json({ message: Code['000'], data: null, code: '000' });
     }
     let md5Pass = createHash('md5');
     userpass = md5Pass.update(userpass).digest('hex');
 
-    _userService.loginByEmail({ email: email, pass: userpass }, res => {
+    return _userService.loginByEmail({ email: email, pass: userpass }, res => {
         if (res) {
-            console.log(res.user_id);
+            return resp.json(res);
         }
+        resp.json({ message: 'aa', code: 200, data: null });
     });
-    resp.json({ message: 'aa', code: 200, data: null });
 
 });
 
