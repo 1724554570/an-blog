@@ -44,7 +44,6 @@ const User = sequelize.define('sequelize_user',
 
 /**
  * 添加一对多关系
- * 一个文章对应多个评论
  */
 User.hasMany(Article, { as: 'Articles' });
 

@@ -33,7 +33,6 @@ const Article = sequelize.define('sequelize_article',
 
 /**
  * 添加一对多关系
- * 一个文章对应多个评论
  */
 Article.hasMany(Comment, {as: 'Comments'});
 
