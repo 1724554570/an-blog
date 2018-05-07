@@ -9,25 +9,7 @@ const _crud = new crud();
 
 export class OnethinkUsers {
     // 用户表名称
-    tableName;
-    // 用户ID
-    id;
-    // 用户昵称
-    username;
-    // 用户密码
-    userpass;
-    // 用户邮箱，唯一
-    email;
-    // 用户头像
-    imgurl = '';
-    // 注册时候使用的设备，pc Or mobile
-    device = '';
-    // 创建时间
-    create_at;
-    // 更新时间(注册时候可为当前注册时间)
-    update_at;
-    // 用户状态
-    state;
+    tableName = 'onethink_user';
 
     // 用户表字段
     userTable = {
@@ -54,7 +36,6 @@ export class OnethinkUsers {
     setUserUpdate = {};
 
     constructor(o) {
-        this.tableName = 'onethink_user';
         if (o) {
             this.username = o.username;
             this.userpass = o.userpass;

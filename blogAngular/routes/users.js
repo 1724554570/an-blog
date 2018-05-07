@@ -1,6 +1,6 @@
 import express from 'express';
 import { createHash } from 'crypto';
-import { OnethinkUsers } from '../core/model/OnethinkUsers';
+import { OnethinkUsers } from '../core/model/onethink_user';
 import { getLogger } from "../lib/log-config";
 import Code from '../lib/code';
 

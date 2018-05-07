@@ -55,13 +55,9 @@ export function isType(o) {
     return ({}).toString.call(o);
 }
 
-export function toJson(o) {
-    if (!o || isType(o) === '[object Array]' && o.length < 1) {
-        return null;
-    }
-    o = JSON.stringify(o);
-    o = JSON.parse(o);
-    return o;
+export function callBack(message = '数据异常,请稍后重试', code = 201, data = null) {
+    console.log(arguments);
+    return { data: data, code: code, message: message };
 }
 
 /**
@@ -77,14 +73,7 @@ export function SymbolUuid(replaceSymbol) {
     return (replaceSymbol) ? (b).replace(/[\-]/g, "") : b;
 }
 
-/**
- * 格式化SQL
- */
-export const toSql = {
-    insert: function (table, field, value) {
-        'INSERT INTO ' + table + ' (' + field + ') VALUES (' + value + ')';
-    },
-    update: function (table, field, condition) {
-        return 'UPDATE ' + table + ' SET ' + field + ' WHERE ' + condition;
-    }
-}
+// Sequelize 输出语句 Executing
+// F:\an-blog\blogAngular\node_modules\sequelize\lib\dialects\sqlite\query.js
+// F:\an-blog\blogAngular\node_modules\sequelize\lib\dialects\postgres\query.js
+// F:\an-blog\blogAngular\node_modules\sequelize\lib\dialects\mysql\query.js

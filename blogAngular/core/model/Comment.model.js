@@ -19,6 +19,9 @@ const Comment = sequelize.define('sequelize_comment',
         comment_state: {
             type: TINYINT,
             defaultValue: 1
+        },
+        article_key: {
+            type: UUID
         }
 
     }, {

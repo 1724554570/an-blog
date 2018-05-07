@@ -3,7 +3,7 @@ import { mysqlDb } from '../config/db-cofig';
 import { getLogger } from "../../lib/log-config";
 
 const { database, user, password } = mysqlDb;
-const loggerDb = getLogger('dberr');
+const DBERROR = getLogger('dberr');
 const sequelize = new Sequelize(database, user, password, {
     host: 'localhost',
     dialect: 'mysql',
@@ -18,8 +18,8 @@ const sequelize = new Sequelize(database, user, password, {
 
 sequelize
     .authenticate()
-    .then(() => { loggerDb.info('Connection has been established successfully.'); })
-    .catch(err => { loggerDb.error('Unable to connect to the database:' + err); });
+    .then(() => { DBERROR.info('Connection has been established successfully.'); })
+    .catch(err => { DBERROR.error('Unable to connect to the database:' + err); });
 
 
 export default sequelize;

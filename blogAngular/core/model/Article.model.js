@@ -21,6 +21,9 @@ const Article = sequelize.define('sequelize_article',
         article_state: {
             type: TINYINT,
             defaultValue: 1
+        },
+        user_key: {
+            type: UUID
         }
 
     }, {

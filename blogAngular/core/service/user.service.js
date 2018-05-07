@@ -1,9 +1,10 @@
 import Sequelize from "sequelize";
 import User from '../model/User.model';
+import Article from '../model/Article.model';
 import { getLogger } from "../../lib/log-config";
-import { SymbolUuid,toJson } from '../../lib/util';
+import { SymbolUuid, callBack } from '../../lib/util';
 
-const db_log = getLogger('dberr');
+const DBERROR = getLogger('dberr');
 
 export default class userService {
 
@@ -11,28 +12,12 @@ export default class userService {
 
     }
 
-    toString(o) {
-        return JSON.stringify(o);
-    }
-
-    toJson(o) {
-        return JSON.parse(o);
-    }
-
-    toStringAJson(o) {
-        return this.toJson(this.toString(o));
-    }
-
-    istype(o) {
-        return ({}).toString(o);
-    }
-
     /**
      * 登录(暂限定邮箱登录)
      * @param {*} user 
-     * @param {*} callback 
+     * @param {*} cb 
      */
-    loginByEmail(user, callback) {
+    loginByEmail(user, cb) {
         User.findOne({
             where: { user_email: user.email },
             attributes: [
@@ -46,29 +31,28 @@ export default class userService {
             ]
         }).then(result => {
             if (!result) {
-                db_log.info("用户邮箱不存在 email:" + user.email);
-                return callback({ data: null, code: 201, message: "用户邮箱不存在" });
+                DBERROR.info("用户邮箱不存在 email:" + user.email);
+                return cb({ data: null, code: 201, message: "用户邮箱不存在" });
             }
-            let _string = this.toString(result)
-            let _result = this.toJson(_string);
-            if (_result.pass != user.pass) {
-                db_log.info("用户密码输入不正确 pass:" + user.pass);
-                return callback({ data: null, code: 201, message: "用户密码输入不正确" });
+            let jsonRes = result.get({ plain: true });
+            if (jsonRes.pass != user.pass) {
+                DBERROR.info("用户密码输入不正确 pass:" + user.pass);
+                return cb({ data: null, code: 201, message: "用户密码输入不正确" });
             }
-            db_log.info("loginByEmail Success:" + _string);
-            callback({ data: _result, code: 200, message: "查找成功" });
+            DBERROR.info("loginByEmail Success:" + JSON.stringify(result));
+            return cb({ data: jsonRes, code: 200, message: "查找成功" });
         }).catch(e => {
-            db_log.error(JSON.stringify(e));
-            callback(null);
+            DBERROR.error(JSON.stringify(e));
+            return cb(callBack());
         });
     }
 
     /**
      * 查询并创建用户
      * @param {*} user 
-     * @param {*} callback 
+     * @param {*} cb 
      */
-    findOrCreate(user, callback) {
+    findOrCreate(user, cb) {
         let uuid = SymbolUuid();
         let saveJson = {};
         saveJson['user_id'] = uuid;
@@ -80,20 +64,31 @@ export default class userService {
             attributes: ['user_email'],
             defaults: saveJson
         }).spread((collect, created) => {
-            db_log.info("User.findOrCreate_created=" + created);
+            DBERROR.info("User.findOrCreate_created=" + JSON.stringify(collect));
             if (!created) { // 用户邮箱存在则创建失败
-                return callback({ data: null, code: 201, message: "用户邮箱已经存在" });
+                return cb({ data: null, code: 201, message: "用户邮箱已经存在" });
             }
-            db_log.info("User.findOrCreate_created_success=" + JSON.stringify(collect));
-            let json = this.toStringAJson(collect);
-            return callback({ data: json, code: 200, message: "创建成功" });
-        }).catch(err => {
-            let catch_err = this.toStringAJson(err);
-            db_log.error("User.findOrCreate_catch=" + JSON.stringify(err));
-            db_log.error("User.findOrCreate_catch_sqlMessage=[" + (catch_err['parent']['sqlMessage']).toString() + "]");
-            return callback({ data: null, code: 201, message: "保存数据失败,请稍后重试" });
+            let jsonRes = collect.get({ plain: true });
+            return cb({ data: jsonRes, code: 200, message: "创建成功" });
+        }).catch(e => {
+            DBERROR.error("User.findOrCreate_catch=" + JSON.stringify(e));
+            return cb(callBack());
         });
 
+    }
+
+    findAndCountAll(uid, cb) {
+        User.findAndCountAll({
+            include: [
+                { model: Article, required: true }
+            ],
+        }).then(res => {
+            DBERROR.info("User.findAndCountAll=" + res);
+            return cb(res);
+        }).catch(e => {
+            DBERROR.error(JSON.stringify(e));
+            return cb(callBack());
+        });
     }
 
 }
