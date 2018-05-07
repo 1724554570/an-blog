@@ -1,4 +1,4 @@
-import { crud } from '../db/db-crud';
+import { crud } from '../database/db-mysql';
 import { toJson, extend, objToArray, trimField } from '../../lib/util';
 import { getLogger } from "../../lib/log-config";
 import { join } from 'path';

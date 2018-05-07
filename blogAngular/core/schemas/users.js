@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+import { Schema } from "mongoose";
 
 // 申明一个mongoons对象
-var UsersSchema = new mongoose.Schema({
+var UsersSchema = new Schema({
     name: String,
     password: String,
     email: String,
@@ -66,4 +66,4 @@ UsersSchema.statics = {
 };
 
 // 暴露方法
-module.exports = UsersSchema;
+export default UsersSchema;

@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon lib/server.js --exec babel-node",
-    "build": "babel lib -d dist --presets es2015,stage-2 ",
-    "server": "node dist/server.js"
+    "dev": "nodemon server/server.js --exec babel-node",
+    "build": "babel server -d dist --presets es2015,stage-2 ",
+    "start": "node ./server/server.js",
+    "server": "node server/server.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

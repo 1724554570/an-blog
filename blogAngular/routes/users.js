@@ -1,8 +1,8 @@
 import express from 'express';
 import { createHash } from 'crypto';
-import { OnethinkUsers } from '../core/models/users';
+import { OnethinkUsers } from '../core/model/OnethinkUsers';
 import { getLogger } from "../lib/log-config";
-import Code from '../core/models/code';
+import Code from '../lib/code';
 
 const loggerInfo = getLogger('info');
 const router = express.Router();

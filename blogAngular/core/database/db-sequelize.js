@@ -16,7 +16,8 @@ const sequelize = new Sequelize(database, user, password, {
     }
 });
 
-sequelize.authenticate()
+sequelize
+    .authenticate()
     .then(() => { loggerDb.info('Connection has been established successfully.'); })
     .catch(err => { loggerDb.error('Unable to connect to the database:' + err); });
 

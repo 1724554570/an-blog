@@ -72,7 +72,7 @@ export function SymbolUuid(replaceSymbol) {
     var b = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (f) {
         var e = Math.random() * 16 | 0,
             d = (f === "x") ? e : (e & 3 | 8);
-        return d.toString(16)
+        return d.toString(16);
     });
     return (replaceSymbol) ? (b).replace(/[\-]/g, "") : b;
 }

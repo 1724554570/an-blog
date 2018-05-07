@@ -1,7 +1,7 @@
 import express from 'express';
 import { createHash } from 'crypto';
 import { getLogger } from "../lib/log-config";
-import Code from '../core/models/code';
+import Code from '../lib/code';
 import userService from '../core/service/user.service';
 
 const router = express.Router();
@@ -25,7 +25,7 @@ router.all('/user/create', function (req, resp, next) {
     let md5Pass = createHash('md5');
     userpass = md5Pass.update(userpass).digest('hex');
 
-    return _userService.createUser({ name: username, pass: userpass, email: email }, res => {
+    return _userService.findOrCreate({ name: username, pass: userpass, email: email }, res => {
         if (res) {
             return resp.json(res);
         }

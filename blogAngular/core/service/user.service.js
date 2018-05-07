@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
-import User from '../sequelize/User.model';
+import User from '../model/User.model';
 import { getLogger } from "../../lib/log-config";
-import { SymbolUuid } from '../../lib/util';
+import { SymbolUuid,toJson } from '../../lib/util';
 
 const db_log = getLogger('dberr');
 
@@ -27,6 +27,11 @@ export default class userService {
         return ({}).toString(o);
     }
 
+    /**
+     * 登录(暂限定邮箱登录)
+     * @param {*} user 
+     * @param {*} callback 
+     */
     loginByEmail(user, callback) {
         User.findOne({
             where: { user_email: user.email },
@@ -58,46 +63,37 @@ export default class userService {
         });
     }
 
-    createUser(user, callback) {
-        User.findOne({
-            where: { user_email: user.email },
-            attributes: ['user_email']
-        }).then(r => {
-            db_log.info("User.createUser=" + JSON.stringify(r));
-            if (!r) {
-                async function f() {
-                    let res = await this.save(user);
-                    return res;
-                }
-                return callback(f().then(res => {
-                    return res;
-                }).catch(e => {
-                    db_log.info("User.createUser=" + JSON.stringify(e));
-                }));
-            }
-            return callback({ data: null, code: 201, message: "用户邮箱已经存在" });
-        })
-    }
-
-    save(user) {
+    /**
+     * 查询并创建用户
+     * @param {*} user 
+     * @param {*} callback 
+     */
+    findOrCreate(user, callback) {
         let uuid = SymbolUuid();
         let saveJson = {};
         saveJson['user_id'] = uuid;
         for (let key in user) {
             saveJson['user_' + key] = user[key];
         }
-        db_log.info(JSON.stringify(saveJson));
-        return User.create(saveJson)
-            .then(result => {
-                let json = result.get({ plain: true });
-                db_log.info("User.create=" + JSON.stringify(json));
-                if (json) {
-                    return { data: json, code: 200, message: "创建成功" };
-                }
-            }).catch(err => {
-                db_log.error(JSON.stringify(err));
-                return { data: null, code: 201, message: "保存数据失败,请稍后重试" };
-            });
+        User.findOrCreate({
+            where: { user_email: user.email },
+            attributes: ['user_email'],
+            defaults: saveJson
+        }).spread((collect, created) => {
+            db_log.info("User.findOrCreate_created=" + created);
+            if (!created) { // 用户邮箱存在则创建失败
+                return callback({ data: null, code: 201, message: "用户邮箱已经存在" });
+            }
+            db_log.info("User.findOrCreate_created_success=" + JSON.stringify(collect));
+            let json = this.toStringAJson(collect);
+            return callback({ data: json, code: 200, message: "创建成功" });
+        }).catch(err => {
+            let catch_err = this.toStringAJson(err);
+            db_log.error("User.findOrCreate_catch=" + JSON.stringify(err));
+            db_log.error("User.findOrCreate_catch_sqlMessage=[" + (catch_err['parent']['sqlMessage']).toString() + "]");
+            return callback({ data: null, code: 201, message: "保存数据失败,请稍后重试" });
+        });
+
     }
 
 }

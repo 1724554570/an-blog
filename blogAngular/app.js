@@ -1,47 +1,24 @@
 import express from 'express';
-
-var createError = require('http-errors');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-let session = require('express-session');
-let MongoStore = require('connect-mongo')(session);
-let flash = require('connect-flash');
-
-// import { useLogger, getLogger } from './lib/log-config';
-//import { mongdb } from './core/config/db-cofig';
-
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var sequlizeUsersRouter = require('./routes/sequlize-user');
+import createError from 'http-errors';
+import { join } from 'path';
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import setRouter from './routes/public';
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// 
-app.use(flash());
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(join(__dirname, 'public')));
 
-// 提供mongdb会话支持
-// app.use(session({
-//   secret: mongdb.cookieSecret,
-//   key: mongdb.db,
-//   cookie: { maxAge: 1000 * 60 * 60 * 24 },
-//   store: new MongoStore({ url: mongdb.urlConnection })
-// }));
-
-app.use('/', indexRouter);
-app.use('/api', usersRouter);
-app.use('/api', sequlizeUsersRouter);
+// 设置路由转发
+setRouter(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -59,6 +36,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-// useLogger(app, getLogger());
-
-module.exports = app;
+export default app;
