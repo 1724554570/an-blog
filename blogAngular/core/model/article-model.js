@@ -37,6 +37,6 @@ const Article = sequelize.define('sequelize_article',
 /**
  * 添加一对多关系
  */
-Article.hasMany(Comment, {as: 'Comments'});
+// Article.hasMany(Comment, {as: 'Comments'});
 
 export default Article;

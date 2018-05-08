@@ -1,6 +1,6 @@
 import { STRING, TINYINT, UUID } from "sequelize";
 import sequelize from '../database/db-sequelize';
-import Article from './Article.model';
+// import Article from './article-model';
 
 /**
  * 用户模型
@@ -45,6 +45,6 @@ const User = sequelize.define('sequelize_user',
 /**
  * 添加一对多关系
  */
-User.hasMany(Article, { as: 'Articles' });
+// User.hasMany(Article, { as: 'Articles' });
 
 export default User;

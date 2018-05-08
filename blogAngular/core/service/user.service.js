@@ -1,6 +1,5 @@
 import Sequelize from "sequelize";
-import User from '../model/User.model';
-import Article from '../model/Article.model';
+import User from '../model/user-model';
 import { getLogger } from "../../lib/log-config";
 import { SymbolUuid, callBack } from '../../lib/util';
 
