@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -10,6 +11,8 @@ import { InterfaceService } from './components/core/interface.service';
 
 import { routerMatch } from './components/routers.module';
 
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,9 +20,19 @@ import { routerMatch } from './components/routers.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    routerMatch
+    routerMatch,
+
+    // MAT TMPL
+    MatButtonModule,
+    MatCheckboxModule
+  ],
+  exports: [
+    // MAT TMPL
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: 'interface', useClass: InterfaceService }

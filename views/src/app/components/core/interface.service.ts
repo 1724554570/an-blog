@@ -8,4 +8,10 @@ export class InterfaceService extends CoreService {
     super();
   }
 
+  getBannerList(){}
+
+  getArticleList(){
+    
+  }
+
 }
