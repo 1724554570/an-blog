@@ -1,10 +1,10 @@
-import { ViewsPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('views App', () => {
-  let page: ViewsPage;
+describe('workspace-project App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new ViewsPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
