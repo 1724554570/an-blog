@@ -6,17 +6,23 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
-
 import { InterfaceService } from './components/core/interface.service';
-
 import { routerMatch } from './components/routers.module';
 
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatInputModule,
+  MatToolbarModule
+} from '@angular/material';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent
+    IndexComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -24,15 +30,20 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
     FormsModule,
     HttpModule,
     routerMatch,
-
     // MAT TMPL
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
+    MatToolbarModule,
   ],
   exports: [
     // MAT TMPL
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatInputModule,
+    MatToolbarModule,
   ],
   providers: [
     { provide: 'interface', useClass: InterfaceService }
