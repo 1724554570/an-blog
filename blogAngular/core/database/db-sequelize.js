@@ -19,7 +19,7 @@ const sequelize = new Sequelize(database, user, password, {
 sequelize
     .authenticate()
     .then(() => { DBERROR.info('Connection has been established successfully.'); })
-    .catch(err => { DBERROR.error('Unable to connect to the database:' + err); });
+    .catch(err => { DBERROR.error('Unable to connect to the database:' + JSON.stringify(err)); });
 
 
 export default sequelize;

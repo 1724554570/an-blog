@@ -22,3 +22,14 @@ template/*
 /views/node_modules
 /views/node_modules/*
 /views/package-lock.json
+
+cc-c/
+cc-c/*
+
+cc-client/
+cc-client/*
+cc-client/node_modules
+cc-client/package-lock.json
+
+.vscode
+.vscode/*

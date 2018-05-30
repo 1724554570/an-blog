@@ -17,12 +17,18 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { FooterComponent } from './layout/footer/footer.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { RegisterComponent } from './components/register/register.component';
+import { BannerComponent } from './layout/banner/banner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarComponent,
+    RegisterComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +50,9 @@ import { FooterComponent } from './layout/footer/footer.component';
     MatDialogModule,
     MatInputModule,
     MatToolbarModule,
+  ],
+  entryComponents: [
+    RegisterComponent
   ],
   providers: [
     { provide: 'interface', useClass: InterfaceService }

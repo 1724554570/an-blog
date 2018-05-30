@@ -1,0 +1,23 @@
+.views-banner,
+.views-content,
+.views-footer {
+  display: block;
+  width: 100%;
+}
+.views-banner .views-container {
+  position: relative;
+  width: 982px;
+  height: 336px;
+  margin: 0 auto;
+}
+.views-content .views-container {
+  position: relative;
+  width: 982px;
+  margin: 0 auto;
+}
+.views-nav {
+  height: 33px;
+  padding: 0 10px 0 34px;
+  background-position: -225px -156px;
+  border-bottom: 2px solid #C10D0C;
+}
