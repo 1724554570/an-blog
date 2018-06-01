@@ -31,5 +31,5 @@ cc-client/*
 cc-client/node_modules
 cc-client/package-lock.json
 
-.vscode
-.vscode/*
+# .vscode
+# .vscode/*
